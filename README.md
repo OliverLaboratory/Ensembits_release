@@ -147,12 +147,18 @@ split:
 python tests/verify_tokenization.py
 
 # 2. encode one ensemble end-to-end with the shipped checkpoint
-python -m scripts.tokenize_with_ensembits --pid 12asA00 \
-    --out /tmp/12asA00.tokens.npy
+#    (--dataset picks which real_bb cache to read; --limit 1 stops after 1 pid)
+python -m scripts.tokenize_with_ensembits \
+    --model ckpt/combined_esm3 --dataset mdcath --limit 1 \
+    --out /tmp/smoke_tokens.npz
 
 # 3. one RMSF probe seed (≈ 20 s on a single H100)
+#    The integer-token cache needs its matching codebook;
+#    setup_data_links.py auto-derives data/codebooks/ours_combined_esm3.npy
+#    from best.pt's L0 weights.
 python -m probes.probe_rmsf \
     --features data/tokens/ours_combined_esm3_misato.npz \
+    --codebook data/codebooks/ours_combined_esm3.npy \
     --labels   data/labels/rmsf_misato.npz \
     --splits   data/splits/misato_splits.json --split-name sequence \
     --out /tmp/_smoke_rmsf.json --seed 0
@@ -210,15 +216,22 @@ Affine3D descriptor.
 ### Encode an ensemble with a trained tokenizer
 
 ```bash
+# Tokenize every pid in the chosen real_bb cache:
 python -m scripts.tokenize_with_ensembits \
-    --model ckpt/combined_esm3 \
-    --pid <your-pid> \
-    --out  /tmp/tokens.npy
+    --model ckpt/combined_esm3 --dataset mdcath \
+    --out  /tmp/tokens.npz
+
+# Or stop after one pid for a quick check:
+python -m scripts.tokenize_with_ensembits \
+    --model ckpt/combined_esm3 --dataset mdcath --limit 1 \
+    --out  /tmp/smoke_tokens.npz
 ```
 
-For single-frame inference (SFTD), pass `--p-inference 1`. The output
-is `(L,)` int64 primary tokens; the matching codebook is reachable as
-`ckpt/<run>/codebook.npy` for downstream embedding lookup.
+`--dataset` picks the real-bb cache (`data/{mdcath,misato}_real_bb/`).
+For single-frame inference (SFTD), add `--p-inference 1`. The output is
+an `.npz` keyed by pid → `(L,) int64` primary tokens. The matching
+`L0` codebook is at `data/codebooks/ours_combined_esm3.npy` (auto-
+derived from `best.pt` by `setup_data_links.py`).
 
 ### Run a single downstream probe
 

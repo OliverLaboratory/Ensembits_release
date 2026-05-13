@@ -128,6 +128,38 @@ for tag in _PG_TOKENIZERS:
 
 # ── Run ─────────────────────────────────────────────────────────────
 
+def _materialize_ours_codebook(repo: Path, dry_run: bool = False) -> None:
+    """Extract the L0 (2048, 128) codebook from ``ckpt/combined_esm3/best.pt``
+    and save it at ``data/codebooks/ours_combined_esm3.npy`` so probes
+    can consume the shipped tokenizer's integer-token caches without
+    needing to re-derive the codebook at runtime."""
+    out = repo / "data" / "codebooks" / "ours_combined_esm3.npy"
+    if out.exists():
+        return
+    ckpt = repo / "ckpt" / "combined_esm3" / "best.pt"
+    if not ckpt.exists():
+        print(f"  MISS: {out.name}  (best.pt not present; skipping codebook derivation)")
+        return
+    if dry_run:
+        print(f"  PLAN: derive {out.relative_to(repo)} from best.pt L0 codebook")
+        return
+    try:
+        import torch
+        import numpy as np
+        state = torch.load(ckpt, map_location="cpu", weights_only=True)
+    except Exception as exc:
+        print(f"  SKIP: could not load best.pt ({type(exc).__name__}: {exc})")
+        return
+    keys = [k for k in state if "vq_levels.0.codebook.weight" in k]
+    if not keys:
+        print(f"  SKIP: L0 codebook key not in best.pt; nothing to write")
+        return
+    w = state[keys[0]].numpy()
+    out.parent.mkdir(parents=True, exist_ok=True)
+    np.save(out, w)
+    print(f"  DERIVED: {out.relative_to(repo)}  shape={tuple(w.shape)} from best.pt")
+
+
 def main(dry_run: bool = False) -> int:
     n_made = n_skip = n_miss = n_already = 0
     for rel, src in LINKS:
@@ -156,6 +188,11 @@ def main(dry_run: bool = False) -> int:
             dst.symlink_to(src)
             print(f"  LINK: {rel}  →  {src}")
             n_made += 1
+    # Derive data/codebooks/ours_combined_esm3.npy from best.pt so probes
+    # that consume `ours/combined/ESM3` integer-token caches have the
+    # matching codebook on disk without a separate Zenodo entry.
+    _materialize_ours_codebook(REPO, dry_run=dry_run)
+
     print(f"\n{'DRY-RUN ' if dry_run else ''}summary: "
           f"made={n_made}  already={n_already}  skipped={n_skip}  missing={n_miss}")
     return n_miss

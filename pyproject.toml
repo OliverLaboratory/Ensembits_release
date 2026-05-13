@@ -16,6 +16,7 @@ dependencies = [
     "matplotlib>=3.7",
     "tqdm>=4.66",
     "esm>=3.0",                  # ESM3 structure encoder (also used as live descriptor)
+    "httpx",                     # transitive of `esm` but not pinned by it; needed at import time
     "mini3di==0.2.1",
 ]
 
