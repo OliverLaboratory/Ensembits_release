@@ -15,15 +15,17 @@ layout. Unzipping it at the repo root populates `data/` and
 `ckpt/combined_esm3/` with real files (not symlinks):
 
 ```bash
-# Fetch the data bundle (~7.5 GB)
+# Fetch the data bundle (~8.3 GB)
 curl -L -o ensembits_repro_data.zip \
-    "https://zenodo.org/records/20152240/files/ensembits_repro_data.zip?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjQ1YzkxYjI4LTBlY2EtNGM4Mi04ZTE2LTUyYjBlYWJjMWIxMiIsImRhdGEiOnt9LCJyYW5kb20iOiIzYTEzYTBhYTljMTUwZTk4NmI4OTBhYWRkNWI4OWJhYSJ9.qfijHJglR9dlIHWReDW9t9Zo5cVUXI3fAasblenQQ8x8xLoRq96suHLZVKh-vD6_GLN8k3AJR6FSavftn6Jlkg"
+    "https://zenodo.org/records/20160175/files/ensembits_repro_data.zip?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjQ1YzkxYjI4LTBlY2EtNGM4Mi04ZTE2LTUyYjBlYWJjMWIxMiIsImRhdGEiOnt9LCJyYW5kb20iOiIzYTEzYTBhYTljMTUwZTk4NmI4OTBhYWRkNWI4OWJhYSJ9.qfijHJglR9dlIHWReDW9t9Zo5cVUXI3fAasblenQQ8x8xLoRq96suHLZVKh-vD6_GLN8k3AJR6FSavftn6Jlkg"
 
 # Unzip at the repo root
 unzip ensembits_repro_data.zip          # → data/  +  ckpt/combined_esm3/
 ```
 
-> 🗄️ **Data zip:** ~7.5 GB; DOI: [10.5281/zenodo.20152240](https://doi.org/10.5281/zenodo.20152240). Record is **Restricted-access**; the tokenized URL above is the share link. The concept DOI is stable across future versions.
+> 🗄️ **Data zip:** ~8.3 GB; DOI: [10.5281/zenodo.20160175](https://doi.org/10.5281/zenodo.20160175). Record is **Restricted-access**; the tokenized URL above is the share link. The concept DOI is stable across future versions.
+>
+> **SHA-256:** `b4d667d3fcd3bbad194ff4313a34b0820c8950cd189a048cb324f2c3c195a79b` — verify with `sha256sum ensembits_repro_data.zip` after download.
 
 If you're building the zip yourself from a local rebuild of the
 canonical caches, run [`scripts/pack_data.sh`](scripts/pack_data.sh) —
