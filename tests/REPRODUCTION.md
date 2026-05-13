@@ -26,6 +26,35 @@ document is the place to look. It explains:
   so anything you compute downstream consumes the **exact same input**
   as the canonical paper run.
 
+### Why `verify_tokenization` may report a 1-residue drift on mini3di-derived baselines
+
+If you run `tests/verify_tokenization.py` from a fresh **uv** or **conda**
+env with **numpy 1.x**, you may see one or two single-residue mismatches
+on `3di_tokens` / `mini3di K=8` / `vote_3di` (typical: 1 / 349 residues
+on pid `1A4M`). This is not a bug in this repo — it's a float-precision
+tiebreak inside `numpy.ma.dot` that changed behaviour between numpy 1.x
+and 2.x.
+
+Trace for the `1A4M` case: at residue 108, the closest two 3Di
+virtual-center neighbours sit at squared distances
+
+    partner 109 → D² = 25.245913976823
+    partner 112 → D² = 25.246237206428
+
+— a gap of 3 × 10⁻⁴, well within the rounding noise of the masked-array
+matrix multiply used at `mini3di/encoder.py:295` to build that
+pairwise-distance matrix. numpy 2.x's BLAS dispatcher picks partner
+109 (token 2); numpy 1.x picks partner 112 (token 12). The downstream
+20-state k-means picks a different cluster, and you see one residue
+drift in the 349-residue chain.
+
+Both `pyproject.toml` and `environment.yml` therefore pin **`numpy>=2.0`**
+to match the canonical build. If you're forced onto numpy 1.x for an
+unrelated reason, expect a ≲ 0.5 % per-residue drift on mini3di-based
+baselines only — Ensembits / AminoAseed / ESM3struct / ProToken are
+all numpy-version-agnostic (they tokenise via PyTorch or TensorFlow,
+which dispatches its own BLAS).
+
 - **ProteinGym matches canonical to 4 decimals.** PG is deterministic
   (no seeds — one Spearman per tokenizer, one α-blend per α). All five
   shipped tokenizers' `alone` and grid-best `α=0.3-blend` Spearmans

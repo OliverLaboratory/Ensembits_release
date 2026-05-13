@@ -9,7 +9,10 @@ dependencies:
   - pip
 
   # Core scientific stack
-  - numpy>=1.24,<2
+  # numpy 2.x — canonical caches were built under numpy 2.2.x and
+  # mini3di's argmin tokenizer has a float-tiebreak that flips
+  # ~1 residue per ~1000 on numpy 1.x; see tests/REPRODUCTION.md.
+  - numpy>=2.0
   - scipy>=1.10
   - scikit-learn>=1.3
   - matplotlib>=3.7

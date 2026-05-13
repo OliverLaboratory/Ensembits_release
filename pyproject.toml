@@ -8,7 +8,12 @@ license = { text = "MIT" }
 authors = [{ name = "Ensembits authors" }]
 
 dependencies = [
-    "numpy>=1.24,<2",
+    # numpy 2.x required: the canonical token caches were built with
+    # numpy 2.2.x, and mini3di's k-means tokenizer is sensitive to a
+    # float-precision tiebreak inside ``numpy.ma.dot`` that differs
+    # between numpy 1.x and 2.x — see tests/REPRODUCTION.md → "Why
+    # verify_tokenization may report 1-residue drift" for the trace.
+    "numpy>=2.0",
     "scipy>=1.10",
     "torch>=2.0",
     "h5py>=3.8",
