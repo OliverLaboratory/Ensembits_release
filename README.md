@@ -121,9 +121,12 @@ large and live outside the repo. The fastest path is the single
 dereferenced zip that mirrors the in-repo `data/` and `ckpt/` layout:
 
 ```bash
-curl -L -o ensembits_repro_data.zip "<ZENODO-URL-TBD>/ensembits_repro_data.zip"
+curl -L -o ensembits_repro_data.zip \
+    "https://zenodo.org/records/20152240/files/ensembits_repro_data.zip?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjQ1YzkxYjI4LTBlY2EtNGM4Mi04ZTE2LTUyYjBlYWJjMWIxMiIsImRhdGEiOnt9LCJyYW5kb20iOiIzYTEzYTBhYTljMTUwZTk4NmI4OTBhYWRkNWI4OWJhYSJ9.qfijHJglR9dlIHWReDW9t9Zo5cVUXI3fAasblenQQ8x8xLoRq96suHLZVKh-vD6_GLN8k3AJR6FSavftn6Jlkg"
 unzip ensembits_repro_data.zip      # → populates data/ + ckpt/combined_esm3/
 ```
+
+> 🗄️ Dataset DOI: [10.5281/zenodo.20152240](https://doi.org/10.5281/zenodo.20152240) — restricted-access record during peer review; the long tokenized URL above is the reviewer-facing share link.
 
 After unzipping you can run every script in the repo directly — no
 symlink setup needed.

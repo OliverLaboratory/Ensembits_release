@@ -15,15 +15,15 @@ layout. Unzipping it at the repo root populates `data/` and
 `ckpt/combined_esm3/` with real files (not symlinks):
 
 ```bash
-# Fetch the data bundle (~9 GB)
+# Fetch the data bundle (~7.5 GB)
 curl -L -o ensembits_repro_data.zip \
-    "<ZENODO-URL-TBD>/ensembits_repro_data.zip"
+    "https://zenodo.org/records/20152240/files/ensembits_repro_data.zip?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjQ1YzkxYjI4LTBlY2EtNGM4Mi04ZTE2LTUyYjBlYWJjMWIxMiIsImRhdGEiOnt9LCJyYW5kb20iOiIzYTEzYTBhYTljMTUwZTk4NmI4OTBhYWRkNWI4OWJhYSJ9.qfijHJglR9dlIHWReDW9t9Zo5cVUXI3fAasblenQQ8x8xLoRq96suHLZVKh-vD6_GLN8k3AJR6FSavftn6Jlkg"
 
 # Unzip at the repo root
 unzip ensembits_repro_data.zip          # → data/  +  ckpt/combined_esm3/
 ```
 
-> 🗄️ **Data zip:** `<ZENODO-URL-TBD>` (~9 GB). DOI: `<TBD>`.
+> 🗄️ **Data zip:** ~7.5 GB; DOI: [10.5281/zenodo.20152240](https://doi.org/10.5281/zenodo.20152240). Record is **Restricted-access** during peer review; the tokenized URL above is the reviewer-facing share link. After acceptance we will publish a new Zenodo version with open access + non-anonymized authors (the concept DOI stays the same).
 
 If you're building the zip yourself from a local rebuild of the
 canonical caches, run [`scripts/pack_data.sh`](scripts/pack_data.sh) —
