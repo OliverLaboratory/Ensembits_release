@@ -83,3 +83,54 @@ to fetch individual pieces or rebuild from the raw sources.
 
 - 1× GPU with ≥ 24 GB VRAM (any of A100/H100/H200/RTX 4090)
 - ProToken CPU fallback works but is ~50× slower than TF-GPU
+
+## Licenses and attribution
+
+This repository (code, the shipped tokenizer at `ckpt/combined_esm3/`,
+and the docs) is released under the **MIT License** — see
+[`LICENSE`](LICENSE).
+
+The data bundle distributed via Zenodo redistributes derivative artifacts
+of several upstream resources, each governed by its own license. The
+table below lists every redistributed component, its upstream license,
+and the canonical citation. All redistribution is permitted under each
+upstream license; the bundle inherits **CC-BY 4.0** so that downstream
+users are required to cite the upstream sources alongside this work.
+
+| Redistributed component | In-zip path | Upstream license | Cite |
+|---|---|---|---|
+| mdCATH real-backbone subset | `data/mdcath_real_bb/` | **CC-BY 4.0** | Mirarchi et al. 2024, *Sci. Data* 11 |
+| MISATO real-backbone subset | `data/misato_real_bb/` | **CC-BY 4.0** | Siebenmorgen et al. 2024, *Nat. Comp. Sci.* 4(5) |
+| ProteinGym DMS labels | `data/pg/dms_scores.json` | **CC-BY 4.0** | Notin et al. 2023, *NeurIPS Datasets & Benchmarks* |
+| ESM2-650M pseudo-LL scores | `data/pg/esm2_scores.json` | **MIT** (ESM-2) | Lin et al. 2023, *Science* 379(6637) |
+| ESMFold-derived ProteinGym tokens (all 5 tokenizers' wt/mut caches) | `data/pg/{wt,mut}_tokens/*.npz` | ESMFold: **MIT**; per-tokenizer outputs governed by the tokenizer's own license | Lin et al. 2023 + per-tokenizer cite below |
+| `aminoaseed` token caches | `data/tokens/aminoaseed_*.npz` | **MIT** (StructTokenBench) | Yuan et al. 2025, arXiv:2503.00089 |
+| `protoken` token caches | `data/tokens/protoken_*.npz` | **Apache-2.0** (ProToken) | Lin et al. 2023, *bioRxiv* 2023.11.27.568722 |
+| `esm3struct` token caches | `data/tokens/esm3struct_*.npz` | ESM3 Community License (EvolutionaryScale) — outputs permitted for research + redistribution | Hayes et al. 2025, *Science* 387(6736) |
+| `3di_tokens`, `vote_3di`, `mini3di_K8`, `protprofile_K{5,8,10}` | `data/tokens/{3di_tokens,vote_3di,mini3di_K8,protprofile_K*}_*.npz` | **GPL-3.0** (Foldseek) + **MIT** (mini3di) | van Kempen et al. 2022, *bioRxiv* 2022.02.07.479398 |
+| Shipped Ensembits tokenizer | `ckpt/combined_esm3/`, `data/tokens/ours_*.npz`, `data/codebooks/ours_combined_esm3.npy` | **MIT** (this repository) | this submission |
+
+If you use the data bundle, please cite **all** upstream resources whose
+derivatives you consume, in addition to this work. The canonical .bib
+entries for each upstream are reproduced in the paper's references list.
+
+### Things not redistributed (gated upstream models)
+
+The bundle does **not** contain:
+
+- ESM3 structure-encoder weights (`EvolutionaryScale/esm3-sm-open-v1`) —
+  gated on HuggingFace under EvolutionaryScale's Community License
+  Agreement; free for research after CLA acceptance.
+- ESMFold weights (`facebook/esmfold_v1`) — gated on HuggingFace; free
+  with a HuggingFace account.
+- ESM2-650M model weights — only the pre-computed pseudo-LL scores are
+  redistributed (sufficient for the PG α-blend); fetching weights
+  themselves is automatic via the `esm` package if you want to recompute.
+- ProToken / AminoAseed / StructTokenBench / Foldseek / mmseqs binaries
+  — fetch instructions in the "External baseline dependencies" table
+  above. Each is under a permissive license but the upstream is the
+  authoritative source.
+
+Re-running any of the above against new sequences/structures requires
+fetching the corresponding upstream weights and accepting their license
+terms.
