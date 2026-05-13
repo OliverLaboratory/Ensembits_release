@@ -1,9 +1,21 @@
-"""Populate ``ensembits-repro/{data,ckpt}/`` with symlinks to the canonical
-caches under ``/home/shik2/multiconf-token/``.
+"""Populate ``ensembits-repro/{data,ckpt}/`` with symlinks to a locally-
+available canonical-cache tree (env var ``ENSEMBITS_CANONICAL_ROOT``).
 
-Lets the rest of the repo work entirely off paths inside ``ensembits-repro/``,
-matching the "reproduction repo" contract. Idempotent: skips links that
-already point at the right target.
+**Most users do not need this script** — the data bundle on Zenodo
+(see MANIFEST.md → "One-shot data download") is the simpler path:
+``unzip`` populates ``data/`` and ``ckpt/`` directly. This script is
+only useful if you already have the canonical cache tree on a shared
+filesystem and want to symlink rather than copy.
+
+Set ``ENSEMBITS_CANONICAL_ROOT`` to a directory that contains:
+
+    <root>/data/cached_descriptors/{misato,mdcath}_real_bb/
+    <root>/data/cached_descriptors/<all the *_tokens_*.npz caches>
+    <root>/data/annotations/misato_{affinity,ec,go}.json
+    <root>/Ensembits/data/<rmsf/pg/splits/aa caches>
+    <root>/output/final_model_combined_…/{best.pt,config.json,stats.npz,history.json}
+
+Idempotent: skips links that already point at the right target.
 
 After this runs, the repo layout is:
 
@@ -19,11 +31,19 @@ After this runs, the repo layout is:
 """
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-SRC_ROOT = Path("/home/shik2/multiconf-token")
+_src_env = os.environ.get("ENSEMBITS_CANONICAL_ROOT")
+if not _src_env:
+    print("[setup_data_links] ENSEMBITS_CANONICAL_ROOT not set — this "
+          "script symlinks to a locally-available canonical-cache tree. "
+          "Most users should unzip the Zenodo data bundle instead "
+          "(see MANIFEST.md).", file=sys.stderr)
+    sys.exit(1)
+SRC_ROOT = Path(_src_env)
 CACHE = SRC_ROOT / "data" / "cached_descriptors"
 ENS_DATA = SRC_ROOT / "Ensembits" / "data"
 ANNOT = SRC_ROOT / "data" / "annotations"

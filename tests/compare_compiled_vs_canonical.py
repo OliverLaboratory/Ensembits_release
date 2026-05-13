@@ -19,12 +19,19 @@ from __future__ import annotations
 
 import csv
 import math
+import os
 import re
 from pathlib import Path
 
-REPRO = Path("/home/shik2/multiconf-token/ensembits-repro/all_baselines_summary.md")
-CANON = Path("/home/shik2/multiconf-token/submission_exp/mds/all_baselines_summary.md")
-CSV_OUT = Path("/home/shik2/multiconf-token/submission_exp/audits/repro_inconsistencies.csv")
+_HERE = Path(__file__).resolve().parent
+_REPO = _HERE.parent
+
+# Defaults point at in-repo files. Override with env vars if you keep
+# the canonical .md somewhere else (e.g. when running against a fresh
+# private sweep).
+REPRO = Path(os.environ.get("REPRO_SUMMARY", _REPO / "all_baselines_summary.md"))
+CANON = Path(os.environ.get("CANON_SUMMARY", _HERE / "canonical" / "all_baselines_summary.md"))
+CSV_OUT = Path(os.environ.get("REPRO_INCONSISTENCIES_CSV", _HERE / "audits" / "repro_inconsistencies.csv"))
 
 # Tolerance scales with the canonical's own seed-variance:
 #   |Δmean| ≤ K_SEM · σ_canon / √n_canon   (≈ K_SEM-σ band on the SEM)

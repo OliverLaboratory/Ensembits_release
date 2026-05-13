@@ -20,12 +20,27 @@ template — extend per-section by adding entries to ``SECTIONS``.
 from __future__ import annotations
 
 import json
+import os
 import re
+import sys
 from pathlib import Path
 
 import numpy as np
 
-ROOT = Path("/home/shik2/multiconf-token")
+# Dev-only: requires the original canonical sweep's per-seed JSON tree
+# which is not distributed with this repo. Set ENSEMBITS_CANONICAL_ROOT
+# to the absolute path that contains both the canonical
+# ``submission_exp/mds/all_baselines_summary.md`` and the
+# ``output/{probe_rmsf_div,probe_rmsf_misato,ec_conv1d_misato,…}/`` JSON
+# subdirs the rest of this script reads.
+_root_env = os.environ.get("ENSEMBITS_CANONICAL_ROOT")
+if not _root_env:
+    print("[skip] ENSEMBITS_CANONICAL_ROOT not set — this script requires "
+          "the canonical lab tree (not in the data bundle). End users "
+          "should run compare_compiled_vs_canonical.py instead.",
+          file=sys.stderr)
+    sys.exit(0)
+ROOT = Path(_root_env)
 SUMMARY = ROOT / "submission_exp" / "mds" / "all_baselines_summary.md"
 # Two display precisions in the .md: most cells use 4 decimals
 # (RMSF/EC/binding), the lig-aware affinity tables use 3 decimals.

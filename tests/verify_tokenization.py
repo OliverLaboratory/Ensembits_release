@@ -1,14 +1,21 @@
-"""Bit-equality verification: new ensembits-repro paths vs canonical caches.
+"""Bit-equality verification: live re-tokenization vs the canonical
+token caches bundled at ``data/tokens/``.
 
-For each tokenizer that has a canonical post-fix cache under
-``/home/shik2/multiconf-token/data/cached_descriptors/``, this script
-runs the equivalent new-repo path on a small set of misato pids and
-compares the resulting per-pid token arrays bit-for-bit.
+For each tokenizer this script runs the live encode-from-real-bb path
+on a small set of misato pids and compares the resulting per-pid token
+arrays bit-for-bit against the bundled canonical ``.npz`` caches. The
+bundled caches are themselves the paper-canonical outputs (extracted
+via Zenodo or symlinked via ``scripts/setup_data_links.py``).
 
 Pass = exact equality (no tolerance). Fail = print mismatches.
+
+External baseline checkpoints (AminoAseed, ProToken) are looked up
+under env-var overrides; if those aren't set the corresponding step
+prints ``[skip]`` and the rest of the suite continues.
 """
 from __future__ import annotations
 
+import os
 import sys
 import time
 from pathlib import Path
@@ -18,9 +25,23 @@ import numpy as np
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
-CACHE_DIR = Path("/home/shik2/multiconf-token/data/cached_descriptors")
-REAL_BB = CACHE_DIR / "misato_real_bb"
-DATA_DIR = REPO / "data"  # has symlinks pointing back to /home/shik2/.../cached_descriptors
+# In-repo data layout (populated by setup_data_links.py or unzip).
+DATA_DIR = Path(os.environ.get("ENSEMBITS_DATA", REPO / "data"))
+TOKENS_DIR = DATA_DIR / "tokens"
+REAL_BB = DATA_DIR / "misato_real_bb"
+MDCATH_BB = DATA_DIR / "mdcath_real_bb"
+CKPT_DIR = REPO / "ckpt" / "combined_esm3"
+
+# In-repo canonical token caches → baseline tag.
+_CACHES = {
+    "ensembits":     TOKENS_DIR / "ours_combined_esm3_misato.npz",
+    "3di_tokens":    TOKENS_DIR / "3di_tokens_misato.npz",
+    "mini3di_K8":    TOKENS_DIR / "mini3di_K8_misato.npz",
+    "vote_3di":      TOKENS_DIR / "vote_3di_misato.npz",
+    "esm3struct":    TOKENS_DIR / "esm3struct_misato.npz",
+    "aminoaseed":    TOKENS_DIR / "aminoaseed_misato.npz",
+    "protoken":      TOKENS_DIR / "protoken_misato.npz",
+}
 
 # Test pids — varied length, mix of single/multi-chain
 TEST_PIDS = ["10GS", "184L", "16PK", "1A07", "1A4M"]
@@ -66,10 +87,9 @@ def load_real_bb(pid: str, P: int = 8):
 def run_ensembits():
     print("\n=== Ensembits (combined/ESM3) ===")
     from ensembits import load_model, tokenize_ensemble
-    model_dir = "/home/shik2/multiconf-token/output/final_model_combined_mdcath_misato_P10_esm3desc_K16_rvq_2048_128_128_varP_consMSE01_distillMax_P10_realbb"
-    ens = load_model(model_dir)
+    ens = load_model(str(CKPT_DIR))
     P_full = ens.config["num_prototypes"]
-    canonical = np.load(CACHE_DIR / "ensembits_combined_mdcath_misato_P10_esm3desc_K16_rvq_2048_128_128_varP_consMSE01_distillMax_P10_realbb_tokens_misato.npz", allow_pickle=True)
+    canonical = np.load(_CACHES["ensembits"], allow_pickle=True)
     ok = True
     for pid in TEST_PIDS:
         bb_8, _, _ = load_real_bb(pid, P=MISATO_P)        # (8, L, 4, 3)
@@ -84,7 +104,7 @@ def run_ensembits():
 def run_3di():
     print("\n=== 3di_tokens (mini3di single-frame) ===")
     from baselines.mini3di import three_di_tokens
-    canonical = np.load(CACHE_DIR / "mini3di_tokens_misato.npz", allow_pickle=True)
+    canonical = np.load(_CACHES["3di_tokens"], allow_pickle=True)
     ok = True
     for pid in TEST_PIDS:
         bb_8, cb_8, seq = load_real_bb(pid, P=8)
@@ -100,7 +120,7 @@ def run_vote_3di():
     from baselines.mini3di import vote_3di
     # The K=8 cache stores per-frame tokens, not the vote_3di output.
     # We need to run vote on top of those frames.
-    cache_k = np.load(CACHE_DIR / "mini3di_tokens_K8_misato.npz", allow_pickle=True)
+    cache_k = np.load(_CACHES["mini3di_K8"], allow_pickle=True)
     ok = True
     for pid in TEST_PIDS:
         bb_8, cb_8, seq = load_real_bb(pid, P=8)
@@ -133,7 +153,7 @@ def run_mini3di_K8():
     """Per-frame mini3di tokens (shape (L, K)) — used as input to vote_3di + protprofile."""
     print("\n=== mini3di K=8 per-frame ===")
     from baselines.mini3di import three_di_tokens
-    canonical = np.load(CACHE_DIR / "mini3di_tokens_K8_misato.npz", allow_pickle=True)
+    canonical = np.load(_CACHES["mini3di_K8"], allow_pickle=True)
     ok = True
     for pid in TEST_PIDS:
         bb_8, cb_8, seq = load_real_bb(pid, P=8)
@@ -155,7 +175,7 @@ def run_esm3struct():
     except Exception as e:
         print(f"  [skip] init failed: {e}")
         return None
-    canonical = np.load(CACHE_DIR / "esm3struct_tokens_misato.npz", allow_pickle=True)
+    canonical = np.load(_CACHES["esm3struct"], allow_pickle=True)
     ok = True
     for pid in TEST_PIDS:
         bb_8, _, _ = load_real_bb(pid, P=8)
@@ -167,20 +187,19 @@ def run_esm3struct():
 
 def run_aminoaseed():
     print("\n=== AminoAseed ===")
-    repo_path = "/home/gonzc11/StructTokenBench/src"
-    ckpts = list(Path("/home/shik2/multiconf-token/data").glob(
-        "**/codebook_512x1024-1e+19-linear-fixed-last.ckpt/checkpoint/mp_rank_00_model_states.pt"
-    ))
-    if not Path(repo_path).exists() or not ckpts:
-        print(f"  [skip] AminoAseed deps not found")
+    # External; set both env vars or this step skips.
+    repo_path = os.environ.get("AMINOASEED_REPO")
+    ckpt_path = os.environ.get("AMINOASEED_CKPT")
+    if not (repo_path and ckpt_path and Path(repo_path).exists() and Path(ckpt_path).exists()):
+        print(f"  [skip] AminoAseed deps not found (set AMINOASEED_REPO and AMINOASEED_CKPT)")
         return None
     try:
         from baselines.aminoaseed import AminoAseed
-        tok = AminoAseed(weights_path=ckpts[0], repo_path=repo_path, device="cuda")
+        tok = AminoAseed(weights_path=Path(ckpt_path), repo_path=repo_path, device="cuda")
     except Exception as e:
         print(f"  [skip] init failed: {e}")
         return None
-    canonical = np.load(CACHE_DIR / "aminoaseed_tokens_misato.npz", allow_pickle=True)
+    canonical = np.load(_CACHES["aminoaseed"], allow_pickle=True)
     ok = True
     for pid in TEST_PIDS:
         bb_8, _, _ = load_real_bb(pid, P=8)
@@ -192,17 +211,18 @@ def run_aminoaseed():
 
 def run_protoken():
     print("\n=== ProToken ===")
-    repo_path = Path("/home/shik2/multiconf-token/data/protoken/full")
-    if not repo_path.exists():
-        print(f"  [skip] ProToken repo not found at {repo_path}")
+    repo_env = os.environ.get("PROTOKEN_REPO")
+    if not repo_env or not Path(repo_env).exists():
+        print(f"  [skip] ProToken repo not found (set PROTOKEN_REPO=/path/to/protoken)")
         return None
+    repo_path = Path(repo_env)
     try:
         from baselines.protoken import ProToken
         tok = ProToken(repo_path=str(repo_path), device="0")
     except Exception as e:
         print(f"  [skip] init failed: {e}")
         return None
-    canonical = np.load(CACHE_DIR / "protoken_tokens_misato.npz", allow_pickle=True)
+    canonical = np.load(_CACHES["protoken"], allow_pickle=True)
     ok = True
     for pid in TEST_PIDS:
         bb_8, _, seq = load_real_bb(pid, P=MISATO_P)
@@ -224,7 +244,6 @@ def run_mdcath_sanity():
     mdCATH (different P + different real_bb layout) and match canon.
     """
     print("\n=== mdCATH sanity (Ensembits + 3di_tokens, P=10) ===")
-    MDCATH_BB = Path("/home/shik2/multiconf-token/data/cached_descriptors/mdcath_real_bb")
     test_pids = ["12asA00", "153lA00", "16pkA02"]
 
     # Ensembits
@@ -237,7 +256,7 @@ def run_mdcath_sanity():
     # confirms the new repo's loader + descriptor + encoder reach the same
     # numbers as the canonical pipeline (any drift would also have shown up
     # in the misato test, which uses the identical loader + encoder).
-    ens = load_model("/home/shik2/multiconf-token/output/final_model_combined_mdcath_misato_P10_esm3desc_K16_rvq_2048_128_128_varP_consMSE01_distillMax_P10_realbb")
+    ens = load_model(str(CKPT_DIR))
 
     ok = True
     for pid in test_pids:
@@ -258,7 +277,7 @@ def run_mdcath_sanity():
             print(f"  ✓ {pid} Ensembits deterministic (L={t1.shape[0]}, range=[{t1.min()},{t1.max()}])")
 
         # 3di_tokens — canonical exists
-        canon = np.load(CACHE_DIR / "mini3di_tokens_mdcath.npz", allow_pickle=True)
+        canon = np.load(TOKENS_DIR / "3di_tokens_mdcath.npz", allow_pickle=True)
         tok_3di = three_di_tokens(bb_10[0, :, 1, :], bb=bb_10[0], cb=cb_10[0])
         canon_3di = np.asarray(canon[pid], dtype=np.int64)
         ok &= _check(f"{pid} 3di_tokens", tok_3di, canon_3di)
