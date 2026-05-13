@@ -126,7 +126,7 @@ curl -L -o ensembits_repro_data.zip \
 unzip ensembits_repro_data.zip      # → populates data/ + ckpt/combined_esm3/
 ```
 
-> 🗄️ Dataset DOI: [10.5281/zenodo.20152240](https://doi.org/10.5281/zenodo.20152240) — restricted-access record during peer review; the long tokenized URL above is the reviewer-facing share link.
+> 🗄️ Dataset DOI: [10.5281/zenodo.20152240](https://doi.org/10.5281/zenodo.20152240) — restricted-access record; the long tokenized URL above is the share link.
 
 After unzipping you can run every script in the repo directly — no
 symlink setup needed.
