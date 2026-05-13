@@ -1,0 +1,38 @@
+name: ensembits-repro
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+
+  # Core scientific stack
+  - numpy>=1.24,<2
+  - scipy>=1.10
+  - scikit-learn>=1.3
+  - matplotlib>=3.7
+  - tqdm>=4.66
+  - h5py>=3.8
+
+  # PyTorch with CUDA 12.1 (adjust pytorch-cuda for your driver)
+  - pytorch>=2.0
+  - pytorch-cuda=12.1
+  - torchvision
+
+  # pip-only deps below
+  - pip:
+      - esm>=3.0
+      - mini3di==0.2.1
+      # Install this repo in editable mode
+      - -e .
+      # Optional extras — uncomment if you need them:
+      #   ProToken (TF SavedModel) baseline:
+      # - tensorflow[and-cuda]==2.21.0
+      # - jax
+      # - jaxlib
+      #   AminoAseed baseline:
+      # - omegaconf
+      #   ESM2 α-blend (ProteinGym; ships pre-computed scores so usually skip):
+      # - transformers>=4.30

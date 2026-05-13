@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+build/
+dist/
+
+# Run artifacts
+runs/
+output/
+logs/
+
+# Heavy data — pointers go in MANIFEST.md
+data/mdcath_real_bb/*.npz
+data/misato_real_bb/*.npz
+data/proteingym_esmfold_atom14/
+data/proteingym/dms/
+ckpt/*/best.pt
+
+# Keep .gitkeep markers
+!data/**/.gitkeep
+!ckpt/**/.gitkeep
+
+
+# Bulky artifacts — distribute via Zenodo, not git
+ensembits_repro_data.zip
+*.zip
+data/
+ckpt/
+runs/
+logs/
+*.npz
+*.npy
+*.pt
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/

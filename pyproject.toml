@@ -1,0 +1,54 @@
+[project]
+name = "ensembits-repro"
+version = "0.1.0"
+description = "Reproduction repo for Ensembits: structural tokenizer for protein conformational ensembles."
+readme = "README.md"
+requires-python = ">=3.10,<3.12"
+license = { text = "MIT" }
+authors = [{ name = "Ensembits authors" }]
+
+dependencies = [
+    "numpy>=1.24,<2",
+    "scipy>=1.10",
+    "torch>=2.0",
+    "h5py>=3.8",
+    "scikit-learn>=1.3",
+    "matplotlib>=3.7",
+    "tqdm>=4.66",
+    "esm>=3.0",                  # ESM3 structure encoder (also used as live descriptor)
+    "mini3di==0.2.1",
+]
+
+[project.optional-dependencies]
+# Baselines that need external repos / checkpoints
+protoken = [
+    "tensorflow[and-cuda]==2.21.0",
+    "jax",
+    "jaxlib",
+]
+aminoaseed = [
+    "omegaconf",
+]
+# For PG α-blend with ESM2 (zero-shot pseudo-LL) — optional, ProteinGym ships pre-computed scores
+esm2 = [
+    "transformers>=4.30",
+]
+dev = [
+    "pytest>=7.4",
+    "ruff>=0.4",
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["ensembits*", "baselines*", "probes*"]
+exclude = ["scripts*", "tests*"]
+
+[tool.setuptools.package-data]
+"ensembits" = ["py.typed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
