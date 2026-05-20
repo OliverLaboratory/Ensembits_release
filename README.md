@@ -1,5 +1,18 @@
 # Ensembits — reproduction repo
 
+[Paper](https://arxiv.org/abs/2605.13789)
+
+Cite:
+
+```
+@article{shi2026ensembits,
+  title={ENSEMBITS: an alphabet of protein conformational ensembles},
+  author={Shi, Kaiwen and Oliver, Carlos},
+  journal={arXiv preprint arXiv:2605.13789},
+  year={2026}
+}
+```
+
 ## What is Ensembits?
 
 **Ensembits** is a Residual VQ-VAE structural tokenizer for protein
