@@ -50,6 +50,20 @@ output/figures/            rendered token exemplar figures (PDB/PNG/PDF)
 
 ## Data
 
+### Download (Zenodo)
+
+Everything the paper's numbers need that is not code is deposited on Zenodo:
+
+| bundle | contents | link |
+|---|---|---|
+| data caches | descriptor caches, backbone caches, splits, cross-validation file, non-PDBbind labels | {{ZENODO:data_url}} (DOI {{ZENODO:data_doi}}) |
+| checkpoints | every trained model the paper reports (λ sweep, ablations, static retrains) | {{ZENODO:checkpoints_url}} (DOI {{ZENODO:checkpoints_doi}}) |
+| ProteinGym structures | ESMFold atom14 cache of the ProteinGym assays (refolding is not bit-reproducible) | {{ZENODO:proteingym_url}} (DOI {{ZENODO:proteingym_doi}}) |
+
+Unpack each bundle at `REPO_ROOT` (see below); SHA-256 checksums: {{ZENODO:checksums}}.
+
+### Layout
+
 Data and outputs live outside this folder, at `REPO_ROOT` (default: two levels up;
 override with `ENSEMBITS_REPO_ROOT`). Third-party inputs go under
 `REPO_ROOT/data/external/` (mdCATH-div, ProteinGym, StructTokenBench), each overridable
