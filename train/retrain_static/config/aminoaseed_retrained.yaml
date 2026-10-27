@@ -1,0 +1,113 @@
+# AminoAseed retrained on BioEmu-CATH + MISATO (camera-ready, P-17/P-26/P-42).
+#
+# Architecture: StructTokenBench AminoAseed (codebook 512 x 1024, frozen codebook
+# + learnable linear projection). Training budget: 360,900 steps = 10 epochs over
+# 144,360 frames on 1 GPU (per-GPU batch 4). The rebuttal ran 108,530 steps on
+# 4 GPUs (effective batch 16, 10 epochs over 172,210 frames from old mdCATH+MISATO).
+# The rebuttal-budget fallback (108,530 steps, 1 GPU) is archived separately.
+#
+# Differences from the rebuttal's aminoaseed_ourdata run:
+#   - Corpus: BioEmu-CATH + MISATO (1072 + 16972 proteins) instead of
+#     mdCATH + MISATO (2434 + 16972). Fewer proteins, same MISATO set.
+#   - Real-bb caches: parser_version cx_2026-10-15 (MISATO proline Cα fixed),
+#     Kabsch FPS (aligned frames).
+#   - Splits: from output/bioemu_cath_misato_e0/cached_desc/splits.json
+#     (same residue-level splits as Ensembits lam10_rv).
+#   - 1 GPU (batch 4) instead of 4 GPUs (batch 16).
+
+experiment_name: aminoaseed_retrained
+run_name: run1
+max_steps: 360900         # 10 epochs * 36090 steps/epoch (144360 frames / batch 4)
+deepspeed_path: ""
+validate_only: false
+test_only: false
+save_dir_path: ""
+
+model:
+  class_name: "VQVAEModel"
+  pretrained_ckpt_path: ""
+  ckpt_path: null
+  quantizer:
+    quantizer_type: StraightThroughQuantizer
+    loss_weight:
+      commitment_loss_weight: 0.25
+      quantization_loss_weight: 1.0
+      reconstruction_loss_weight: 1.0
+    codebook_size: 512
+    codebook_embed_size: 1024
+    _need_init: true
+    freeze_codebook: true
+    use_linear_project: true
+  encoder:
+    d_model: 1024
+    n_heads: 1
+    v_heads: 128
+    n_layers: 2
+    d_out: 1024
+  decoder:
+    d_model: 1024
+    n_heads: 16
+    n_layers: 8
+
+data:
+  data_name: EnsembleFramesDataset
+  manifest_path: __MANIFEST__       # filled by the launcher
+  extras_dir: __EXTRAS__            # filled by the launcher
+  num_workers: 8
+  prefetch_factor: 4
+  truncation_length: 512
+  filter_length: 512
+  crop_mode: random
+  frames_per_protein: 10
+  fast_dev_run: false
+
+optimization:
+  micro_batch_size: 4
+  seed: 1234
+  optimizer:
+    name: adam
+    lr: 0.0001
+    betas: [0.9, 0.98]
+    eps: 1.0e-08
+    adam_w_mode: true
+    weight_decay: 0.01
+    params: null
+  scheduler:
+    _target_: util.get_cosine_schedule_with_warmup
+    optimizer: null
+    min_ratio: 0.1
+    plateau_ratio: 0.0
+    num_warmup_steps: 5426
+    num_training_steps: 360900
+  override:
+    mult_factor: 1.0
+    add_index: 0
+
+trainer:
+  accelerator: "gpu"
+  devices: [0]                      # 1 GPU (launcher overrides)
+  num_nodes: 1
+  precision: 32-true
+  max_steps: 360900
+  max_epochs: null
+  gradient_clip_val: 1.0
+  accumulate_grad_batches: 1
+  log_every_n_steps: 512
+  check_val_every_n_epoch: 1
+  val_check_interval: 2000
+  num_sanity_val_steps: 0
+  limit_train_batches: null
+  limit_val_batches: 200
+  enable_checkpointing: true
+  enable_model_summary: true
+  enable_progress_bar: true
+  reload_dataloaders_every_n_epochs: 1
+  deterministic: false
+  default_root_dir: __OUTPUT__      # filled by the launcher
+
+checkpoint:
+  monitor: "validation_bb_rmsd"
+  mode: "min"
+  save_top_k: 1
+  save_last: true
+  every_n_train_steps: 2000

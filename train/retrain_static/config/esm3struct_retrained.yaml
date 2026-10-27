@@ -1,0 +1,112 @@
+# ESM3-style structure tokenizer retrained on BioEmu-CATH + MISATO
+# (camera-ready, P-17/P-26/P-42).
+#
+# Architecture: ESM3 encoder + 4096 x 128 EMA-updated codebook
+# (ema_quantizer.py; the released esm package omits the training path).
+# Decoder: StructTokenBench 1024/16/8 (NOT ESM3's 1280/20/30), so the
+# variable is quantizer design, not decoder capacity.
+#
+# Training budget: 360,900 steps = 10 epochs over 144,360 frames on 1 GPU
+# (per-GPU batch 4). The rebuttal-budget fallback (108,530 steps) is archived
+# separately.
+
+experiment_name: esm3struct_retrained
+run_name: run1
+max_steps: 360900
+deepspeed_path: ""
+validate_only: false
+test_only: false
+save_dir_path: ""
+
+model:
+  class_name: "VQVAEModel"
+  pretrained_ckpt_path: ""
+  ckpt_path: null
+  quantizer:
+    quantizer_type: EMAQuantizer
+    loss_weight:
+      commitment_loss_weight: 0.25
+      quantization_loss_weight: 1.0
+      reconstruction_loss_weight: 1.0
+    codebook_size: 4096
+    codebook_embed_size: 128
+    _need_init: true
+    freeze_codebook: false
+    use_linear_project: false
+    ema_decay: 0.99
+    eps: 1.0e-05
+    no_random_restart: true
+    restart_thres: 1.0
+  encoder:
+    d_model: 1024
+    n_heads: 1
+    v_heads: 128
+    n_layers: 2
+    d_out: 128
+  decoder:
+    d_model: 1024
+    n_heads: 16
+    n_layers: 8
+
+data:
+  data_name: EnsembleFramesDataset
+  manifest_path: __MANIFEST__
+  extras_dir: __EXTRAS__
+  num_workers: 8
+  prefetch_factor: 4
+  truncation_length: 512
+  filter_length: 512
+  crop_mode: random
+  frames_per_protein: 10
+  fast_dev_run: false
+
+optimization:
+  micro_batch_size: 4
+  seed: 1234
+  optimizer:
+    name: adam
+    lr: 0.0001
+    betas: [0.9, 0.98]
+    eps: 1.0e-08
+    adam_w_mode: true
+    weight_decay: 0.01
+    params: null
+  scheduler:
+    _target_: util.get_cosine_schedule_with_warmup
+    optimizer: null
+    min_ratio: 0.1
+    plateau_ratio: 0.0
+    num_warmup_steps: 5426
+    num_training_steps: 360900
+  override:
+    mult_factor: 1.0
+    add_index: 0
+
+trainer:
+  accelerator: "gpu"
+  devices: [0]
+  num_nodes: 1
+  precision: 32-true
+  max_steps: 360900
+  max_epochs: null
+  gradient_clip_val: 1.0
+  accumulate_grad_batches: 1
+  log_every_n_steps: 512
+  check_val_every_n_epoch: 1
+  val_check_interval: 2000
+  num_sanity_val_steps: 0
+  limit_train_batches: null
+  limit_val_batches: 200
+  enable_checkpointing: true
+  enable_model_summary: true
+  enable_progress_bar: true
+  reload_dataloaders_every_n_epochs: 1
+  deterministic: false
+  default_root_dir: __OUTPUT__
+
+checkpoint:
+  monitor: "validation_bb_rmsd"
+  mode: "min"
+  save_top_k: 1
+  save_last: true
+  every_n_train_steps: 2000

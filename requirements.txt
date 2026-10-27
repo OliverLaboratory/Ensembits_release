@@ -1,0 +1,40 @@
+# Ensembits: required Python packages
+# Install: pip install -r requirements.txt
+# Python >= 3.10 required (match | union types, structural pattern matching).
+
+# Core
+torch>=2.0
+numpy>=1.24
+scipy>=1.10
+
+# Data I/O
+h5py>=3.8
+
+# Molecular structures (PDB input, BioEmu trajectory loading, fold pairs)
+mdtraj>=1.9
+
+# Plotting (figures and training curves)
+matplotlib>=3.7
+
+# Machine learning metrics (downstream probes)
+scikit-learn>=1.2
+
+# Progress bars (training, downstream probes)
+tqdm>=4.60
+
+# Tabular data (downstream compilation scripts)
+pandas>=1.5
+
+# Testing
+pytest>=7.0
+
+# ------- Optional (not needed for training or tokenization) -------
+
+# ESM3-struct baseline and geometry check (checks/check_geometry_vs_esm.py,
+# data_prep/baselines/build_esm3struct_tokens.py). Not needed for the
+# descriptor (ensembits/geometry.py replaces ESM3 utilities).
+# esm
+# omegaconf  # transitive dependency of esm
+
+# CryptoBench structure stage (downstream/cryptobench/)
+# gemmi

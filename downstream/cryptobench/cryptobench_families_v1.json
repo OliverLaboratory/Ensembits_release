@@ -1,0 +1,1541 @@
+{
+ "bundle": "cryptobench_families_v1",
+ "note": "pre-specified on 2026-10-21 before any CryptoBench run of the _rv checkpoints (camera_ready/cryptobench_audit/PORT.md); entry = apo id; primary metric per-entry AUROC (auroc_per_protein on entry items); no leakage stratum (authors, CB5); z / q / q0 readouts and the other runs are descriptive (no test). {RUN} / {STRUCT} are filled by run_cryptobench_rv.py.",
+ "B": 10000,
+ "seed": 20261019,
+ "split": "test",
+ "clusters": {
+  "path": "camera_ready/cryptobench_audit/leak_D/test_clusters_30.json",
+  "sha256": "9d1f1f84871b670a60539e49f2ba5e54c18f0df48a7ca047c427e9402a2144cc"
+ },
+ "families": [
+  {
+   "family": "primary_mlp_per_entry_auroc",
+   "role": "primary",
+   "comparisons": [
+    {
+     "id": "mlp_auroc_per_protein_ens_lam0p25_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs aa"
+    },
+    {
+     "id": "mlp_auroc_per_protein_ens_lam0p25_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs 3Di"
+    },
+    {
+     "id": "mlp_auroc_per_protein_ens_lam0p25_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs AminoAseed"
+    },
+    {
+     "id": "mlp_auroc_per_protein_ens_lam0p25_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ESM3-struct"
+    },
+    {
+     "id": "mlp_auroc_per_protein_ens_lam0p25_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ProToken"
+    },
+    {
+     "id": "mlp_auroc_per_protein_ens_lam1_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs aa"
+    },
+    {
+     "id": "mlp_auroc_per_protein_ens_lam1_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs 3Di"
+    },
+    {
+     "id": "mlp_auroc_per_protein_ens_lam1_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs AminoAseed"
+    },
+    {
+     "id": "mlp_auroc_per_protein_ens_lam1_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ESM3-struct"
+    },
+    {
+     "id": "mlp_auroc_per_protein_ens_lam1_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ProToken"
+    }
+   ]
+  },
+  {
+   "family": "secondary_conv_per_entry_auroc",
+   "role": "secondary",
+   "comparisons": [
+    {
+     "id": "conv_auroc_per_protein_ens_lam0p25_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs aa"
+    },
+    {
+     "id": "conv_auroc_per_protein_ens_lam0p25_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs 3Di"
+    },
+    {
+     "id": "conv_auroc_per_protein_ens_lam0p25_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs AminoAseed"
+    },
+    {
+     "id": "conv_auroc_per_protein_ens_lam0p25_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ESM3-struct"
+    },
+    {
+     "id": "conv_auroc_per_protein_ens_lam0p25_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ProToken"
+    },
+    {
+     "id": "conv_auroc_per_protein_ens_lam1_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs aa"
+    },
+    {
+     "id": "conv_auroc_per_protein_ens_lam1_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs 3Di"
+    },
+    {
+     "id": "conv_auroc_per_protein_ens_lam1_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs AminoAseed"
+    },
+    {
+     "id": "conv_auroc_per_protein_ens_lam1_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ESM3-struct"
+    },
+    {
+     "id": "conv_auroc_per_protein_ens_lam1_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ProToken"
+    }
+   ]
+  },
+  {
+   "family": "secondary_mlp_auroc_pooled",
+   "role": "secondary",
+   "comparisons": [
+    {
+     "id": "mlp_auroc_pooled_ens_lam0p25_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs aa"
+    },
+    {
+     "id": "mlp_auroc_pooled_ens_lam0p25_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs 3Di"
+    },
+    {
+     "id": "mlp_auroc_pooled_ens_lam0p25_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs AminoAseed"
+    },
+    {
+     "id": "mlp_auroc_pooled_ens_lam0p25_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ESM3-struct"
+    },
+    {
+     "id": "mlp_auroc_pooled_ens_lam0p25_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ProToken"
+    },
+    {
+     "id": "mlp_auroc_pooled_ens_lam1_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs aa"
+    },
+    {
+     "id": "mlp_auroc_pooled_ens_lam1_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs 3Di"
+    },
+    {
+     "id": "mlp_auroc_pooled_ens_lam1_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs AminoAseed"
+    },
+    {
+     "id": "mlp_auroc_pooled_ens_lam1_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ESM3-struct"
+    },
+    {
+     "id": "mlp_auroc_pooled_ens_lam1_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ProToken"
+    }
+   ]
+  },
+  {
+   "family": "secondary_mlp_ap_pooled",
+   "role": "secondary",
+   "comparisons": [
+    {
+     "id": "mlp_ap_pooled_ens_lam0p25_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs aa"
+    },
+    {
+     "id": "mlp_ap_pooled_ens_lam0p25_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs 3Di"
+    },
+    {
+     "id": "mlp_ap_pooled_ens_lam0p25_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs AminoAseed"
+    },
+    {
+     "id": "mlp_ap_pooled_ens_lam0p25_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ESM3-struct"
+    },
+    {
+     "id": "mlp_ap_pooled_ens_lam0p25_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ProToken"
+    },
+    {
+     "id": "mlp_ap_pooled_ens_lam1_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs aa"
+    },
+    {
+     "id": "mlp_ap_pooled_ens_lam1_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs 3Di"
+    },
+    {
+     "id": "mlp_ap_pooled_ens_lam1_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs AminoAseed"
+    },
+    {
+     "id": "mlp_ap_pooled_ens_lam1_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ESM3-struct"
+    },
+    {
+     "id": "mlp_ap_pooled_ens_lam1_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ProToken"
+    }
+   ]
+  },
+  {
+   "family": "secondary_conv_auroc_pooled",
+   "role": "secondary",
+   "comparisons": [
+    {
+     "id": "conv_auroc_pooled_ens_lam0p25_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs aa"
+    },
+    {
+     "id": "conv_auroc_pooled_ens_lam0p25_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs 3Di"
+    },
+    {
+     "id": "conv_auroc_pooled_ens_lam0p25_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs AminoAseed"
+    },
+    {
+     "id": "conv_auroc_pooled_ens_lam0p25_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ESM3-struct"
+    },
+    {
+     "id": "conv_auroc_pooled_ens_lam0p25_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ProToken"
+    },
+    {
+     "id": "conv_auroc_pooled_ens_lam1_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs aa"
+    },
+    {
+     "id": "conv_auroc_pooled_ens_lam1_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs 3Di"
+    },
+    {
+     "id": "conv_auroc_pooled_ens_lam1_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs AminoAseed"
+    },
+    {
+     "id": "conv_auroc_pooled_ens_lam1_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ESM3-struct"
+    },
+    {
+     "id": "conv_auroc_pooled_ens_lam1_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ProToken"
+    }
+   ]
+  },
+  {
+   "family": "secondary_conv_ap_pooled",
+   "role": "secondary",
+   "comparisons": [
+    {
+     "id": "conv_ap_pooled_ens_lam0p25_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs aa"
+    },
+    {
+     "id": "conv_ap_pooled_ens_lam0p25_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs 3Di"
+    },
+    {
+     "id": "conv_ap_pooled_ens_lam0p25_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs AminoAseed"
+    },
+    {
+     "id": "conv_ap_pooled_ens_lam0p25_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ESM3-struct"
+    },
+    {
+     "id": "conv_ap_pooled_ens_lam0p25_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ProToken"
+    },
+    {
+     "id": "conv_ap_pooled_ens_lam1_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs aa"
+    },
+    {
+     "id": "conv_ap_pooled_ens_lam1_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs 3Di"
+    },
+    {
+     "id": "conv_ap_pooled_ens_lam1_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs AminoAseed"
+    },
+    {
+     "id": "conv_ap_pooled_ens_lam1_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ESM3-struct"
+    },
+    {
+     "id": "conv_ap_pooled_ens_lam1_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "ap_pooled",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ProToken"
+    }
+   ]
+  },
+  {
+   "family": "sensitivity_mlp_min5pos_per_entry_auroc",
+   "role": "sensitivity (pre-declared)",
+   "comparisons": [
+    {
+     "id": "mlp_auroc_per_protein_min5pos_ens_lam0p25_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs aa",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_min5pos_ens_lam0p25_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs 3Di",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_min5pos_ens_lam0p25_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs AminoAseed",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_min5pos_ens_lam0p25_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ESM3-struct",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_min5pos_ens_lam0p25_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ProToken",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_min5pos_ens_lam1_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs aa",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_min5pos_ens_lam1_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs 3Di",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_min5pos_ens_lam1_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs AminoAseed",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_min5pos_ens_lam1_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ESM3-struct",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_min5pos_ens_lam1_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ProToken",
+     "subset": {
+      "min_positives": 5
+     }
+    }
+   ]
+  },
+  {
+   "family": "sensitivity_mlp_noncryptic_masked_per_entry_auroc",
+   "role": "sensitivity (pre-declared)",
+   "comparisons": [
+    {
+     "id": "mlp_auroc_per_protein_ncmask_ens_lam0p25_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs aa",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_ncmask_ens_lam0p25_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs 3Di",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_ncmask_ens_lam0p25_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs AminoAseed",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_ncmask_ens_lam0p25_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ESM3-struct",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_ncmask_ens_lam0p25_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ProToken",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_ncmask_ens_lam1_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs aa",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_ncmask_ens_lam1_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs 3Di",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_ncmask_ens_lam1_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs AminoAseed",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_ncmask_ens_lam1_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ESM3-struct",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "mlp_auroc_per_protein_ncmask_ens_lam1_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ProToken",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "family": "sensitivity_conv_min5pos_per_entry_auroc",
+   "role": "sensitivity (pre-declared)",
+   "comparisons": [
+    {
+     "id": "conv_auroc_per_protein_min5pos_ens_lam0p25_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs aa",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_min5pos_ens_lam0p25_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs 3Di",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_min5pos_ens_lam0p25_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs AminoAseed",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_min5pos_ens_lam0p25_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ESM3-struct",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_min5pos_ens_lam0p25_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ProToken",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_min5pos_ens_lam1_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs aa",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_min5pos_ens_lam1_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs 3Di",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_min5pos_ens_lam1_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs AminoAseed",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_min5pos_ens_lam1_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ESM3-struct",
+     "subset": {
+      "min_positives": 5
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_min5pos_ens_lam1_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ProToken",
+     "subset": {
+      "min_positives": 5
+     }
+    }
+   ]
+  },
+  {
+   "family": "sensitivity_conv_noncryptic_masked_per_entry_auroc",
+   "role": "sensitivity (pre-declared)",
+   "comparisons": [
+    {
+     "id": "conv_auroc_per_protein_ncmask_ens_lam0p25_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs aa",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_ncmask_ens_lam0p25_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs 3Di",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_ncmask_ens_lam0p25_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs AminoAseed",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_ncmask_ens_lam0p25_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ESM3-struct",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_ncmask_ens_lam0p25_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs ProToken",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_ncmask_ens_lam1_rv_vs_aa",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aa__onehot__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs aa",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_ncmask_ens_lam1_rv_vs_mini3di_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/mini3di_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs 3Di",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_ncmask_ens_lam1_rv_vs_aminoaseed_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/aminoaseed_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs AminoAseed",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_ncmask_ens_lam1_rv_vs_esm3struct_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/esm3struct_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ESM3-struct",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    },
+    {
+     "id": "conv_auroc_per_protein_ncmask_ens_lam1_rv_vs_protoken_wc",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/protoken_wc__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs ProToken",
+     "subset": {
+      "mask": {
+       "path": "{STRUCT}/apo_noncryptic_mask.json"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "family": "ablation_mlp_per_entry_auroc",
+   "role": "secondary (ablation)",
+   "comparisons": [
+    {
+     "id": "mlp_ablation_ens_lam0p25_rv_vs_ens_nosftd_rv",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/ens_nosftd_rv__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs nosftd (SFTD ablation)"
+    },
+    {
+     "id": "mlp_ablation_ens_lam0p25_rv_vs_ens_lam0_rv",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/ens_lam0_rv__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs lam0 (SFTD ablation)"
+    },
+    {
+     "id": "mlp_ablation_ens_lam1_rv_vs_ens_nosftd_rv",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/ens_nosftd_rv__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs nosftd (SFTD ablation)"
+    },
+    {
+     "id": "mlp_ablation_ens_lam1_rv_vs_ens_lam0_rv",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/mlp/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/mlp/ens_lam0_rv__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs lam0 (SFTD ablation)"
+    }
+   ]
+  },
+  {
+   "family": "ablation_conv_per_entry_auroc",
+   "role": "secondary (ablation)",
+   "comparisons": [
+    {
+     "id": "conv_ablation_ens_lam0p25_rv_vs_ens_nosftd_rv",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/ens_nosftd_rv__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs nosftd (SFTD ablation)"
+    },
+    {
+     "id": "conv_ablation_ens_lam0p25_rv_vs_ens_lam0_rv",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam0p25_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/ens_lam0_rv__token__seed*.json"
+     ],
+     "label": "Ensembits lam0p25 vs lam0 (SFTD ablation)"
+    },
+    {
+     "id": "conv_ablation_ens_lam1_rv_vs_ens_nosftd_rv",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/ens_nosftd_rv__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs nosftd (SFTD ablation)"
+    },
+    {
+     "id": "conv_ablation_ens_lam1_rv_vs_ens_lam0_rv",
+     "task": "cryptobench",
+     "metric": "auroc_per_protein",
+     "a": [
+      "{RUN}/conv/ens_lam1_rv__token__seed*.json"
+     ],
+     "b": [
+      "{RUN}/conv/ens_lam0_rv__token__seed*.json"
+     ],
+     "label": "Ensembits lam1 vs lam0 (SFTD ablation)"
+    }
+   ]
+  }
+ ]
+}

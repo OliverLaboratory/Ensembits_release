@@ -1,0 +1,5 @@
+{
+ "source": "mdCATH 1ctfA00, 379 K, replica 0, 10 frames evenly spaced over 440 (camera_ready/fig_descriptor/extract.py)",
+ "ncac": "(10, 68, 3, 3) float32, atoms N, CA, C",
+ "tokens_P10_reported_ckpt": "(68, 3) tokens of ckpt/bioemu_cath_misato_lam10 at P=10 (iupac convention, ensembits_bm_lam10_rv)"
+}

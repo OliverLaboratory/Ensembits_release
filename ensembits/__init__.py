@@ -1,47 +1,21 @@
-"""Ensembits — structural tokenizer for protein conformational ensembles."""
+"""Ensembits: a residual VQ-VAE tokenizer for protein conformational ensembles.
 
-from .descriptors import compute_esm3_descriptor
-from .featurize import (
-    Ensembits,
-    codebook_size,
-    load_bb_for_pid,
-    load_model,
-    onehot_fulltoken,
-    onehot_tokens,
-    tokenize_ensemble,
-    tokenize_ensemble_all,
-)
-from .tokenizer import (
-    RVQVAETokenizer,
-    SetDecoder,
-    SetTransformerEncoder,
-    VectorQuantizer,
-    hungarian_loss,
-)
-from .trainer import TrainConfig, standardize, train_rvqvae
+Package map (paper section → module):
+  descriptor.py      256-D per-residue, per-frame descriptor
+                     (`appendix.tex` app:descriptor-esm3; `1_method.tex` Dynamical mode)
+  ideal_backbone.py  ideal-geometry N/C from C-alpha (`appendix.tex` Conventions)
+  tokenizer/         set encoder, residual quantizer, decoder
+                     (`1_method.tex` Tokenizer; `appendix.tex` app:RVQVAE, app:model-impl)
+  losses.py          Hungarian matching + FAPE + dihedral term
+                     (`1_method.tex` Eq. eq:hungarian, eq:fape)
+  featurize.py       load the checkpoint, tokenize ensembles
+  paths.py           where code, data and the checkpoint live
 
-__version__ = "0.1.0"
+The SFTD objective (`1_method.tex` Eq. eq:sftd) lives in the training loop,
+`train/train.py`.
+"""
+from .tokenizer.vqvae import VQVAETokenizer
+from .tokenizer.rvqvae import RVQVAETokenizer
+from . import tokenizer
 
-__all__ = [
-    # Model
-    "RVQVAETokenizer",
-    "SetDecoder",
-    "SetTransformerEncoder",
-    "VectorQuantizer",
-    "hungarian_loss",
-    # Descriptor
-    "compute_esm3_descriptor",
-    # Loader + inference
-    "Ensembits",
-    "load_model",
-    "tokenize_ensemble",
-    "tokenize_ensemble_all",
-    "load_bb_for_pid",
-    "codebook_size",
-    "onehot_tokens",
-    "onehot_fulltoken",
-    # Training
-    "TrainConfig",
-    "train_rvqvae",
-    "standardize",
-]
+__all__ = ["RVQVAETokenizer", "VQVAETokenizer", "tokenizer"]
